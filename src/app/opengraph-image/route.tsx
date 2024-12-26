@@ -8,10 +8,9 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const joke = searchParams.get('joke') || 'Generate hilarious dad jokes with AI';
 
-    // Load and cache font
-    const notoSansBold = await fetch(
-      'https://fonts.gstatic.com/s/notosans/v30/o-0NIpQlx3QUlC5A4PNjXhFlY9aA5Wl6PQ.ttf',
-      { next: { revalidate: 60 * 60 * 24 } }
+    // Load the Noto Sans font (known to work with Edge Runtime)
+    const font = await fetch(
+      'https://fonts.gstatic.com/s/notosans/v30/o-0NIpQlx3QUlC5A4PNjXhFlY9aA5Wl6PQ.ttf'
     ).then((res) => res.arrayBuffer());
 
     return new ImageResponse(
@@ -65,7 +64,7 @@ export async function GET(req: NextRequest) {
         fonts: [
           {
             name: 'Noto Sans',
-            data: notoSansBold,
+            data: font,
             style: 'normal',
             weight: 700,
           },

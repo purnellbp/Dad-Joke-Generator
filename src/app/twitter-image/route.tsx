@@ -1,33 +1,17 @@
 import { ImageResponse } from 'next/og';
- 
-// Route segment config
-export const runtime = 'edge';
- 
-// Image metadata
-export const alt = 'Dad Joke Generator';
-export const size = {
-  width: 1200,
-  height: 630,
-};
-export const contentType = 'image/png';
+import { NextRequest } from 'next/server';
 
-// Cache font response
-let notoSansBoldData: ArrayBuffer | null = null;
- 
-// Image generation
-export default async function Image() {
+export const runtime = 'edge';
+
+export async function GET(req: NextRequest) {
   try {
-    // Load and cache font
-    if (!notoSansBoldData) {
-      const response = await fetch(
-        'https://fonts.gstatic.com/s/notosans/v30/o-0NIpQlx3QUlC5A4PNjXhFlY9aA5Wl6PQ.ttf',
-        { next: { revalidate: 60 * 60 * 24 } } // Cache for 24 hours
-      );
-      if (!response.ok) {
-        throw new Error(`Failed to load font: ${response.status} ${response.statusText}`);
-      }
-      notoSansBoldData = await response.arrayBuffer();
-    }
+    const { searchParams } = new URL(req.url);
+    const joke = searchParams.get('joke') || 'Generate hilarious dad jokes with AI';
+
+    // Load the Noto Sans font (known to work with Edge Runtime)
+    const font = await fetch(
+      'https://fonts.gstatic.com/s/notosans/v30/o-0NIpQlx3QUlC5A4PNjXhFlY9aA5Wl6PQ.ttf'
+    ).then((res) => res.arrayBuffer());
 
     return new ImageResponse(
       (
@@ -58,22 +42,29 @@ export default async function Image() {
           </div>
           <div
             style={{
-              fontSize: 40,
+              fontSize: 36,
               color: 'rgba(255, 255, 255, 0.9)',
               textAlign: 'center',
               lineHeight: 1.4,
+              maxWidth: '90%',
+              margin: '0 auto',
+              padding: '20px',
+              background: 'rgba(0, 0, 0, 0.2)',
+              borderRadius: '12px',
+              whiteSpace: 'pre-wrap',
             }}
           >
-            Generate hilarious dad jokes with AI
+            {joke}
           </div>
         </div>
       ),
       {
-        ...size,
+        width: 1200,
+        height: 630,
         fonts: [
           {
             name: 'Noto Sans',
-            data: notoSansBoldData,
+            data: font,
             style: 'normal',
             weight: 700,
           },
@@ -81,7 +72,7 @@ export default async function Image() {
       }
     );
   } catch (error: unknown) {
-    console.log(`Failed to generate OpenGraph image: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    console.log(`Failed to generate Twitter image: ${error instanceof Error ? error.message : 'Unknown error'}`);
     return new Response(`Failed to generate image`, {
       status: 500,
     });

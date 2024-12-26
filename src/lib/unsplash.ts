@@ -1,34 +1,23 @@
-import { getRandomDadImage } from '@/app/actions';
-
-const CACHE_KEY = 'dad-joke-bg-image';
-const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
-
-interface CachedImage {
-  url: string;
-  timestamp: number;
-}
-
 export async function getBackgroundImage(): Promise<string> {
-  // Check localStorage first
-  const cached = localStorage.getItem(CACHE_KEY);
-  if (cached) {
-    const parsedCache: CachedImage = JSON.parse(cached);
-    if (Date.now() - parsedCache.timestamp < CACHE_DURATION) {
-      return parsedCache.url;
-    }
-  }
-
-  const imageUrl = await getRandomDadImage();
-  
-  if (imageUrl) {
-    localStorage.setItem(
-      CACHE_KEY,
-      JSON.stringify({
-        url: imageUrl,
-        timestamp: Date.now(),
-      })
+  try {
+    const response = await fetch(
+      `https://api.unsplash.com/photos/random?query=father,dad&orientation=landscape`,
+      {
+        headers: {
+          Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
+        },
+        next: { revalidate: 60 * 60 } // Cache for 1 hour
+      }
     );
-  }
 
-  return imageUrl;
+    if (!response.ok) {
+      throw new Error('Failed to fetch image');
+    }
+
+    const data = await response.json();
+    return data.urls.regular;
+  } catch (error) {
+    console.error('Error fetching Unsplash image:', error);
+    return '';
+  }
 } 

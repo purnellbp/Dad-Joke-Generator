@@ -1,15 +1,21 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import type { Joke } from "@/lib/jokes";
 import { generateJokeAction } from "@/app/actions";
 import { ShareMenu } from "@/lib/social-icons";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
-import { useRouter, useSearchParams } from 'next/navigation';
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { getJoke } from "@/lib/joke-storage";
+
+interface JokeGeneratorProps {
+  initialJokeId?: string;
+}
 
 const SpinningLoader = () => (
   <motion.div
@@ -21,104 +27,104 @@ const SpinningLoader = () => (
   </motion.div>
 );
 
-export function JokeGenerator() {
-  const [currentJoke, setCurrentJoke] = useState<Joke | null>(null);
-  const [displayedJoke, setDisplayedJoke] = useState<string>("");
+export function JokeGenerator({ initialJokeId }: JokeGeneratorProps) {
+  const [joke, setJoke] = useState<Joke | null>(null);
+  const [lastJokeText, setLastJokeText] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isOffensive, setIsOffensive] = useState(false);
   const { toast } = useToast();
-  const router = useRouter();
-  const searchParams = useSearchParams();
 
-  // Update animation effect to use currentJoke
+  // Load initial joke if ID is provided
   useEffect(() => {
-    if (currentJoke) {
-      setIsAnimating(true);
-      setDisplayedJoke("");
-      let index = 0;
-      const interval = setInterval(() => {
-        if (index >= currentJoke.text.length) {
-          clearInterval(interval);
-          setIsAnimating(false);
-          return;
+    async function loadInitialJoke() {
+      if (initialJokeId) {
+        const initialJoke = await getJoke(initialJokeId);
+        if (initialJoke) {
+          setJoke(initialJoke);
+          setLastJokeText(initialJoke.text);
         }
-        index++;
-        setDisplayedJoke(currentJoke.text.slice(0, index));
-      }, 50);
-
-      return () => clearInterval(interval);
+      }
     }
-  }, [currentJoke]);
+    loadInitialJoke();
+  }, [initialJokeId]);
 
-  const generateJoke = useCallback(async () => {
+  async function handleGenerateJoke() {
+    if (isLoading) return;
+    
     setIsLoading(true);
     try {
-      const joke = await generateJokeAction();
-      setCurrentJoke(joke);
-      
-      // Update URL with new joke for social sharing
-      const params = new URLSearchParams(searchParams);
-      params.set('joke', joke.text);
-      router.push(`/?${params.toString()}`);
-
+      const newJoke = await generateJokeAction(lastJokeText, isOffensive);
+      setJoke(newJoke);
+      setLastJokeText(newJoke.text);
     } catch (error) {
+      console.error("Error generating joke", error);
       toast({
         title: "Error generating joke",
         description: "Please try again later",
         variant: "destructive",
       });
-      console.error("Error generating joke:", error);
     } finally {
       setIsLoading(false);
     }
-  }, [toast, searchParams, router]);
-
-  // Generate initial joke
-  useEffect(() => {
-    generateJoke();
-  }, [generateJoke]);
+  }
 
   return (
-    <div className=" w-[95vw] max-w-[1200px]">
-      <Card className="w-full backdrop-blur-sm border bg-card/75 text-card-foreground">
-        <CardHeader className="">
+    <div className="w-[95vw] max-w-[1200px]">
+      <Card className="w-full backdrop-blur-sm border bg-card/75">
+        <CardHeader>
           <CardTitle className="text-center text-2xl sm:text-3xl">
-            {currentJoke?.emoji || "👨"} Dad Joke Generator
+            {joke?.emoji || "👨"} Dad Joke Generator
           </CardTitle>
         </CardHeader>
-        <CardContent className="">
-          <div className="relative min-h-[180px]">
-          
-            <p className="inset-0 flex items-center justify-center text-center text-xl sm:text-3xl px-6">
-              {displayedJoke || "Click the button to generate a dad joke!"}
-              </p>
-          </div>
-          <div className="flex justify-between gap-4">
-            <Button
-              onClick={generateJoke}
-              className="h-16 text-2xl"
-              disabled={isLoading || isAnimating}
+        <CardContent>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={joke?.id || 'empty'}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="relative min-h-[180px]"
             >
-              <span className="flex items-center gap-2">
-                {isLoading ? (
-                  <>
-                    <SpinningLoader /> Generating...
-                  </>
-                ) : isAnimating ? (
-                  <>
-                    <SpinningLoader /> Typing...
-                  </>
-                ) : (
-                  "Generate Joke"
-                )}
-              </span>
-            </Button>
-            {currentJoke && (
-              <ShareMenu
-                text={currentJoke.text}
-                className="h-16 text-2xl px-4 bg-transparent border-none"
-              />
-            )}
+              <p className="text-center text-xl sm:text-3xl px-6 whitespace-pre-wrap">
+                {joke?.text || "Click the button to generate a dad joke!"}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+          <div className="flex flex-col gap-4 mt-8">
+            <div className="flex items-center justify-center gap-8">
+             
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="offensive-mode"
+                  checked={isOffensive}
+                  onCheckedChange={setIsOffensive}
+                />
+                <Label htmlFor="offensive-mode">Offensive Mode</Label>
+              </div>
+            </div>
+            <div className="flex justify-between items-center gap-4">
+              <Button
+                onClick={handleGenerateJoke}
+                className="h-16 text-2xl"
+                disabled={isLoading}
+              >
+                <span className="flex items-center gap-2">
+                  {isLoading ? (
+                    <>
+                      <SpinningLoader /> Generating...
+                    </>
+                  ) : (
+                    "Generate Joke"
+                  )}
+                </span>
+              </Button>
+              {joke && (
+                <ShareMenu
+                  text={joke.text}
+                  className="h-16 text-2xl px-4 bg-transparent border-none hover:text-white/80"
+                />
+              )}
+            </div>
           </div>
         </CardContent>
       </Card>
