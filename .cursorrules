@@ -1,0 +1,59 @@
+{
+  "rules": [
+    {
+      "name": "Expertise Areas",
+      "pattern": "(?i)\\b(TypeScript|Node.js|Next.js App Router|React|Shadcn UI|Tailwind CSS|Framer Motion)\\b",
+      "message": "The assistant should leverage expertise in TypeScript, Node.js, Next.js App Router, React (with React 18 optimizations), Shadcn UI, Tailwind CSS, and Framer Motion."
+    },
+    {
+      "name": "Code Style and Structure",
+      "pattern": "(?i)\\b(concise|accurate|modular|composition|descriptive variable names)\\b",
+      "message": "Write concise, accurate TypeScript code using functional and declarative programming patterns. Avoid classes, favor hooks and modularization, and use descriptive variable names with auxiliary verbs."
+    },
+    {
+      "name": "AI Features Model Selection",
+      "pattern": "(?i)\\b(AI-powered features|gpt-4o|gpt-4o-mini)\\b",
+      "message": "For AI-powered features, only use 'gpt-4o' for complex tasks and 'gpt-4o-mini' for cost-effective routine tasks."
+    },
+    {
+      "name": "Naming Conventions",
+      "pattern": "(?i)\\b(naming|components|directories|exports)\\b",
+      "message": "All components should go in 'src/components' and be named like 'new-component.tsx'. Use lowercase with dashes for directories and favor named exports unless there’s a single logical export."
+    },
+    {
+      "name": "TypeScript Usage",
+      "pattern": "(?i)\\b(TypeScript|interfaces|types|enums|zod|io-ts)\\b",
+      "message": "Use TypeScript for all code, prefer 'interfaces' over 'types' for objects, avoid 'enums' by using 'const' objects or maps, and leverage 'zod' or 'io-ts' for runtime type checking."
+    },
+    {
+      "name": "Syntax and Formatting",
+      "pattern": "(?i)\\b(function keyword|curly braces|declarative JSX)\\b",
+      "message": "Use the 'function' keyword for pure functions, avoid unnecessary curly braces in conditionals, and use declarative JSX with minimal inline logic."
+    },
+    {
+      "name": "UI and Styling",
+      "pattern": "(?i)\\b(Tailwind|Shadcn UI|responsive design|plugins)\\b",
+      "message": "Use Shadcn UI for accessible components, Tailwind CSS with modern utilities like '@layer', and implement responsive design with a mobile-first approach."
+    },
+    {
+      "name": "Performance Optimization",
+      "pattern": "(?i)\\b(use client|useEffect|Suspense|dynamic imports|images)\\b",
+      "message": "Minimize 'use client' and 'useEffect'. Favor React Server Components (RSC) for data-heavy rendering. Use 'Suspense' with proper fallbacks, dynamic imports with 'next/dynamic', and optimize images using modern formats like 'WebP' or 'AVIF'."
+    },
+    {
+      "name": "Key Conventions",
+      "pattern": "(?i)\\b(Core Web Vitals|next/navigation|useRouter|use client|placeholder images)\\b",
+      "message": "Optimize for Core Web Vitals, use 'next/navigation' and 'useRouter' for URL state management, and limit 'use client' for browser-specific APIs only."
+    },
+    {
+      "name": "Project Structure",
+      "pattern": "(?i)\\b(/app|/components|/src|organization)\\b",
+      "message": "Place '/app' and '/components' under '/src' to maintain a clean and organized structure, adhering to the principle of separation of concerns."
+    },
+    {
+      "name": "Components Organization",
+      "pattern": "(?i)\\b(by type|by feature|private components|shared components|modular structure)\\b",
+      "message": "Organize components in '/src/components' by type or feature. Use '_components' for private components and ensure shared components are reusable across features. Adopt a modular approach for scalability."
+    }
+  ]
+}
