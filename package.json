@@ -3,18 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run redis:start && next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "redis:start": "docker ps -f name=redis-dad-jokes -q || (docker start redis-dad-jokes || docker run --name redis-dad-jokes -p 6379:6379 -d redis)",
+    "redis:stop": "docker stop redis-dad-jokes",
+    "redis:logs": "docker logs redis-dad-jokes",
+    "redis:clean": "docker stop redis-dad-jokes || true && docker rm redis-dad-jokes || true",
+    "dev:clean": "npm run redis:clean && npm run dev"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.4",
     "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-toast": "^1.2.4",
     "@shadcn/ui": "^0.0.4",
+    "@vercel/kv": "^3.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.15.0",
+    "ioredis": "^5.4.2",
     "lucide-react": "^0.469.0",
     "next": "15.1.2",
     "openai": "^4.77.0",

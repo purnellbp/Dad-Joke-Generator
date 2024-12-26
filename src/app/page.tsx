@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <main 
-      className="min-h-[100dvh] w-full flex items-center justify-center p-8 relative"
+      className="min-h-[100dvh] w-full flex items-center justify-center  relative"
       style={{
         backgroundImage: bgImage ? `url(${bgImage})` : undefined,
         backgroundSize: 'cover',
