@@ -1,0 +1,7 @@
+# Allow social media crawlers to access OG images
+User-agent: *
+Allow: /opengraph-image
+Allow: /twitter-image
+
+# Sitemap
+Sitemap: https://artificialintelligencepaternalhumordistributionplatform.online/sitemap.xml 

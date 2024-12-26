@@ -9,6 +9,7 @@ import { generateJokeAction } from "@/app/actions";
 import { ShareMenu } from "@/lib/social-icons";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const SpinningLoader = () => (
   <motion.div
@@ -26,6 +27,8 @@ export function JokeGenerator() {
   const [isLoading, setIsLoading] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   // Update animation effect to use currentJoke
   useEffect(() => {
@@ -52,6 +55,12 @@ export function JokeGenerator() {
     try {
       const joke = await generateJokeAction();
       setCurrentJoke(joke);
+      
+      // Update URL with new joke for social sharing
+      const params = new URLSearchParams(searchParams);
+      params.set('joke', joke.text);
+      router.push(`/?${params.toString()}`);
+
     } catch (error) {
       toast({
         title: "Error generating joke",
@@ -62,7 +71,7 @@ export function JokeGenerator() {
     } finally {
       setIsLoading(false);
     }
-  }, [toast]);
+  }, [toast, searchParams, router]);
 
   // Generate initial joke
   useEffect(() => {

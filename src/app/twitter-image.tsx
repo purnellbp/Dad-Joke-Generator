@@ -1,20 +1,18 @@
 import { ImageResponse } from 'next/og';
  
-// Route segment config
 export const runtime = 'edge';
  
-// Image metadata
 export const alt = 'Dad Joke Generator';
 export const size = {
   width: 1200,
   height: 630,
 };
+ 
 export const contentType = 'image/png';
 
 // Cache font response
 let notoSansBoldData: ArrayBuffer | null = null;
  
-// Image generation
 export default async function Image() {
   try {
     // Load and cache font
@@ -81,7 +79,7 @@ export default async function Image() {
       }
     );
   } catch (error: unknown) {
-    console.log(`Failed to generate OpenGraph image: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    console.log(`Failed to generate Twitter image: ${error instanceof Error ? error.message : 'Unknown error'}`);
     return new Response(`Failed to generate image`, {
       status: 500,
     });
