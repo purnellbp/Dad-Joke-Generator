@@ -3,36 +3,42 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { GoogleTagManager } from '@next/third-parties/google'
+import { siteConfig } from '@/lib/site-config'
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Dad Joke Generator',
-  description: 'Generate hilarious dad jokes with AI and share them with your friends!',
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
   openGraph: {
-    title: 'Dad Joke Generator',
-    description: 'Generate hilarious dad jokes with AI and share them with your friends!',
     type: 'website',
-    url: 'https://artificialintelligencepaternalhumordistributionplatform.online',
-    siteName: 'Dad Joke Generator',
     locale: 'en_US',
-    images: [
-      {
-        url: 'https://artificialintelligencepaternalhumordistributionplatform.online/opengraph-image',
-        width: 1200,
-        height: 630,
-        alt: 'Dad Joke Generator',
-      },
-    ],
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [{
+      url: siteConfig.ogImage,
+      width: 1200,
+      height: 630,
+      alt: siteConfig.name,
+    }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dad Joke Generator',
-    description: 'Generate hilarious dad jokes with AI and share them with your friends!',
-    creator: '@CtrlCPasta',
-    images: ['https://artificialintelligencepaternalhumordistributionplatform.online/twitter-image'],
+    title: siteConfig.name,
+    description: siteConfig.description,
+    creator: siteConfig.creator,
+    images: [siteConfig.ogImage],
   },
-};
+  icons: {
+    icon: '/favicon.ico',
+  },
+}
 
 export default function RootLayout({
   children,
