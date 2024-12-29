@@ -18,11 +18,11 @@ type ToasterToast = ToastProps & {
   action?: ToastActionElement
 }
 
-const actionTypes = {
-  ADD_TOAST: "ADD_TOAST",
-  UPDATE_TOAST: "UPDATE_TOAST",
-  DISMISS_TOAST: "DISMISS_TOAST",
-  REMOVE_TOAST: "REMOVE_TOAST",
+const ToastActionType = {
+  ADD_TOAST: 'ADD_TOAST',
+  UPDATE_TOAST: 'UPDATE_TOAST',
+  DISMISS_TOAST: 'DISMISS_TOAST',
+  REMOVE_TOAST: 'REMOVE_TOAST',
 } as const
 
 let count = 0
@@ -32,24 +32,22 @@ function genId() {
   return count.toString()
 }
 
-type ActionType = typeof actionTypes
-
 type Action =
   | {
-      type: ActionType["ADD_TOAST"]
+      type: typeof ToastActionType.ADD_TOAST
       toast: ToasterToast
     }
   | {
-      type: ActionType["UPDATE_TOAST"]
+      type: typeof ToastActionType.UPDATE_TOAST
       toast: Partial<ToasterToast>
     }
   | {
-      type: ActionType["DISMISS_TOAST"]
-      toastId?: ToasterToast["id"]
+      type: typeof ToastActionType.DISMISS_TOAST
+      toastId?: ToasterToast['id']
     }
   | {
-      type: ActionType["REMOVE_TOAST"]
-      toastId?: ToasterToast["id"]
+      type: typeof ToastActionType.REMOVE_TOAST
+      toastId?: ToasterToast['id']
     }
 
 interface State {
@@ -76,13 +74,13 @@ const addToRemoveQueue = (toastId: string) => {
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "ADD_TOAST":
+    case ToastActionType.ADD_TOAST:
       return {
         ...state,
         toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
       }
 
-    case "UPDATE_TOAST":
+    case ToastActionType.UPDATE_TOAST:
       return {
         ...state,
         toasts: state.toasts.map((t) =>
@@ -90,7 +88,7 @@ export const reducer = (state: State, action: Action): State => {
         ),
       }
 
-    case "DISMISS_TOAST": {
+    case ToastActionType.DISMISS_TOAST: {
       const { toastId } = action
 
       // ! Side effects ! - This could be extracted into a dismissToast() action,
@@ -115,7 +113,7 @@ export const reducer = (state: State, action: Action): State => {
         ),
       }
     }
-    case "REMOVE_TOAST":
+    case ToastActionType.REMOVE_TOAST:
       if (action.toastId === undefined) {
         return {
           ...state,
