@@ -16,13 +16,12 @@ interface ShareMenuProps {
 }
 
 export function ShareMenu({ text, className }: ShareMenuProps) {
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const shareUrl = typeof window !== 'undefined' ? window.location.origin : '';
   const encodedText = encodeURIComponent(text);
-  
+
   const shareLinks = {
     twitter: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodeURIComponent(shareUrl)}`,
-    email: `mailto:?subject=Check%20out%20this%20Dad%20Joke&body=${encodedText}%0A%0A${encodeURIComponent(shareUrl)}`,
-    reddit: `https://www.reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodedText}`
+    reddit: `https://reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodedText}`
   };
 
   const handleShare = async () => {
@@ -45,16 +44,17 @@ export function ShareMenu({ text, className }: ShareMenuProps) {
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(shareUrl);
+      const textToCopy = `${text}\n\n${shareUrl}\n\n#DadJoke`;
+      await navigator.clipboard.writeText(textToCopy);
       toast({
-        title: "Link copied!",
-        description: "The joke URL has been copied to your clipboard.",
+        title: "Copied!",
+        description: "The joke has been copied to your clipboard.",
       });
     } catch (error: unknown) {
       console.error('Failed to copy to clipboard:', error);
       toast({
         title: "Failed to copy",
-        description: "Please try again or copy the URL manually.",
+        description: "Please try again or copy manually.",
         variant: "destructive",
       });
     }
@@ -101,13 +101,13 @@ export function ShareMenu({ text, className }: ShareMenuProps) {
             <span>Share on Reddit</span>
           </a>
         </DropdownMenuItem>
-     
+
         <DropdownMenuItem
           onClick={copyToClipboard}
           className="flex items-center gap-2 cursor-pointer"
         >
           <Link2 className="h-4 w-4" />
-          <span>Copy Link</span>
+          <span>Copy to Clipboard</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

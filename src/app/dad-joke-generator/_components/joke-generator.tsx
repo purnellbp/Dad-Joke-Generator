@@ -127,8 +127,9 @@ export function JokeGenerator() {
                   id="offensive-mode"
                   checked={isOffensive}
                   onCheckedChange={setIsOffensive}
+                  disabled={true}
                 />
-                <Label htmlFor="offensive-mode">Offensive Mode</Label>
+                <Label htmlFor="offensive-mode">Offensive Mode <span className="text-xs text-destructive">(Coming Soon!)</span></Label>
               </div>
             </div>
             <div className="flex justify-between items-center gap-4">

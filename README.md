@@ -10,7 +10,7 @@ A modern web application that generates dad jokes using AI, with beautiful dynam
 - 📊 Analytics integration with Google Tag Manager
 - ⚡ Built with Next.js 14 App Router and React Server Components
 - 🎨 Beautiful UI with Tailwind CSS and Shadcn UI
-- 🔄 Rate limiting with Redis/Vercel KV
+- 🔄 Recent jokes history with local storage
 - 📱 Fully responsive design
 - ✨ Smooth animations with Framer Motion
 
@@ -18,9 +18,9 @@ A modern web application that generates dad jokes using AI, with beautiful dynam
 
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **UI Components**: Shadcn UI
-- **Database**: Vercel KV (Redis)
+- **Styling**: Tailwind CSS, Shadcn UI
+- **Animations**: Framer Motion, Tailwind Motion
+- **State Management**: React Hooks + Local Storage
 - **Analytics**: Google Tag Manager
 - **APIs**: OpenAI, Unsplash
 - **Deployment**: Vercel
@@ -43,11 +43,12 @@ A modern web application that generates dad jokes using AI, with beautiful dynam
    cp .env.example .env
    ```
 
-4. Update the environment variables in `.env` with your own values:
-   - Get OpenAI API key from [OpenAI Platform](https://platform.openai.com/api-keys)
-   - Get Unsplash API keys from [Unsplash Developers](https://unsplash.com/developers)
-   - Set up Vercel KV in your Vercel dashboard
-   - Get Google Tag Manager ID from [Google Tag Manager](https://tagmanager.google.com/)
+4. Update the environment variables in `.env`:
+   ```
+   OPENAI_API_KEY=your_openai_key
+   UNSPLASH_ACCESS_KEY=your_unsplash_key
+   NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID=your_gtm_id
+   ```
 
 5. Start the development server:
    ```bash
@@ -56,53 +57,44 @@ A modern web application that generates dad jokes using AI, with beautiful dynam
 
 6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Environment Variables
+## Project Structure
 
-See `.env.example` for all required environment variables. Make sure to set these up before running the application.
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── dad-joke-generator/ # Dad joke generator feature
+│   │   ├── actions/       # Server actions
+│   │   ├── _components/   # Feature-specific components
+│   │   ├── hooks/         # Custom hooks
+│   │   └── lib/          # Feature-specific utilities
+│   └── layout.tsx         # Root layout
+├── components/            # Shared components
+├── lib/                  # Shared utilities
+└── types/               # TypeScript type definitions
+```
 
 ## Features in Detail
 
 ### Dynamic OpenGraph Images
 
-The application generates dynamic OpenGraph images for social sharing. When a joke is generated, the URL updates with the joke text, and the OpenGraph image includes the current joke. This creates a better sharing experience on social media platforms.
+The application generates dynamic OpenGraph images for social sharing. When a joke is generated, a custom image is created with:
+- The joke text
+- A dynamic background
+- Branding elements
 
-#### Previewing OpenGraph Images
+### Recent Jokes History
 
-You can preview how your OpenGraph images will look in several ways:
+The application keeps track of your 5 most recent jokes using local storage, allowing you to:
+- View your joke history
+- Share previous jokes
+- See your joke-telling journey
 
-1. **Direct URL Access**:
-   ```
-   http://localhost:3000/opengraph-image?joke=Your joke text here
-   ```
-   This will show you exactly how the image will appear when shared.
+### Animations and Interactions
 
-2. **Social Media Preview Tools**:
-   - Use [OpenGraph.xyz](https://www.opengraph.xyz/) - paste your URL to see how it appears on different platforms
-   - Use [Twitter Card Validator](https://cards-dev.twitter.com/validator)
-   - Use [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/)
-
-3. **Vercel Deployment**:
-   - After deploying to Vercel, use the built-in OpenGraph Image Preview in your deployment dashboard
-   - Each deployment will show you a preview of your OpenGraph images in the "OpenGraph" tab
-
-4. **Local Development**:
-   - Generate a joke on the homepage
-   - The URL will update with the joke parameter
-   - Visit `/opengraph-image` with that URL to see the generated image
-
-### Rate Limiting
-
-Rate limiting is implemented using Redis (locally) or Vercel KV (in production) to prevent abuse. The limits are configurable through environment variables:
-- `RATE_LIMIT_DURATION`: Duration of the rate limit window in seconds
-- `MAX_REQUESTS_PER_WINDOW`: Maximum number of requests allowed per window
-
-### Analytics
-
-Google Tag Manager is integrated to track:
-- Page views
-- Joke generations
-- Social shares
-- User interactions
+- Smooth page transitions
+- Interactive UI elements
+- Playful hover effects
+- Loading states and transitions
 
 ## Contributing
 
