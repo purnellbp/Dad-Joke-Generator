@@ -128,7 +128,7 @@ export default function Home() {
             <div className="relative max-w-[400px] sm:max-w-[600px]">
               <div className="aspect-square rounded-2xl overflow-hidden">
                 <Image 
-                  src="/images/dad-joke-machine.jpeg" 
+                  src="/images/dad-joke-machine.webp" 
                   alt="A cartoon of a dad with a giant machine that spits out dad jokes"
                   width={600}
                   height={600}
@@ -292,7 +292,7 @@ export default function Home() {
           <div className="hidden sm:block text-center my-12   px-4">
             <div className="relative">
               <Image
-                src="/images/arrow-pointing-down.png" 
+                src="/images/arrow-pointing-down.webp" 
                 alt="Cartoon arrow" 
                 width={80}
                 height={80}
@@ -325,7 +325,7 @@ export default function Home() {
               <CardContent>
                 <div className="relative w-full aspect-video mb-4 rounded-lg overflow-hidden">
                   <Image
-                    src="/images/dad-joke-of-the-day.jpeg"
+                    src="/images/dad-joke-of-the-day.webp"
                     alt="Dad joke of the day"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -342,13 +342,13 @@ export default function Home() {
             <Card className="bg-white/5 border-white/20 transform hover:scale-[1.02] transition-transform">
               <CardHeader>
                 <CardTitle className="text-xl font-bold">
-                  Dad Joke Challenge
+                  Dad Joke Challenge (Coming Soon)
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="relative w-full aspect-video mb-4 rounded-lg overflow-hidden">
                   <Image
-                    src="/images/dad-joke-challenge.jpeg"
+                    src="/images/dad-joke-challenge.webp"
                     alt="Dad joke challenge"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -364,13 +364,13 @@ export default function Home() {
             <Card className="bg-white/5 border-white/20 transform hover:scale-[1.02] transition-transform">
               <CardHeader>
                 <CardTitle className="text-xl font-bold">
-                  Dad Joke Hall of Fame
+                  Dad Joke Hall of Fame (Coming Soon)
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="relative w-full aspect-video mb-4 rounded-lg overflow-hidden">
                   <Image
-                    src="/images/dad-joke-hall-of-fame.jpg"
+                    src="/images/dad-joke-hall-of-fame.webp"
                     alt="Dad joke hall of fame"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"

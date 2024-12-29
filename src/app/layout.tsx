@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description: "Generate hilarious dad jokes with AI and share them with your friends!",
     images: [
       {
-        url: "/images/dad-joke-machine.jpeg",
+        url: "/images/dad-joke-machine.webp",
         width: 1200,
         height: 630,
         alt: "Dad Joke Generator"
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "Dad Joke Generator",
     description: "Generate hilarious dad jokes with AI and share them with your friends!",
     creator: siteConfig.creator,
-    images: ["/images/dad-joke-machine.jpeg"],
+    images: ["/images/dad-joke-machine.webp"],
   },
   icons: {
     icon: '/favicon.ico',
@@ -52,9 +52,9 @@ export default function RootLayout({
       <head>
         <link
           rel="preload"
-          href="/images/dad-joke-machine.jpeg"
+          href="/images/dad-joke-machine.webp"
           as="image"
-          type="image/jpeg"
+          type="image/webp"
         />
       </head>
       <body className={inter.className}>
