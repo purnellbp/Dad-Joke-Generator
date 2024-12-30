@@ -17,28 +17,31 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: siteConfig.url,
+    url: '/',
     siteName: siteConfig.name,
-    title: "Dad Joke Generator",
-    description: "Generate hilarious dad jokes with AI and share them with your friends!",
-    images: [
-      {
-        url: "/images/dad-joke-machine.webp",
-        width: 1200,
-        height: 630,
-        alt: "Dad Joke Generator"
-      }
-    ],
+    title: {
+      default: siteConfig.name,
+      template: `%s | ${siteConfig.name}`,
+    },
+    description: siteConfig.description,
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Dad Joke Generator",
-    description: "Generate hilarious dad jokes with AI and share them with your friends!",
+    card: 'summary_large_image',
+    title: {
+      default: siteConfig.name,
+      template: `%s | ${siteConfig.name}`,
+    },
+    description: siteConfig.description,
     creator: siteConfig.creator,
-    images: ["/images/dad-joke-machine.webp"],
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      {
+        url: '/icon',
+        type: 'image/png',
+        sizes: '32x32',
+      }
+    ],
   },
 }
 

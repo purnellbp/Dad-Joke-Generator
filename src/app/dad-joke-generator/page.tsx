@@ -6,11 +6,11 @@ import Link from 'next/link'
 
 export default function DadJokeGeneratorPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4">
+    <main className="flex min-h-screen flex-col items-center justify-center sm:p-4 ">
       <BackgroundImage />
       <Link 
         href="/"
-        className="absolute top-4 left-4 px-4 py-2 text-white/80 hover:text-white transition-colors"
+        className="hidden md:block absolute top-4 left-4 px-4 py-2  transition-colors"
       >
         ← Back to Home
       </Link>

@@ -1,10 +1,10 @@
 // src\lib\joke-categories.ts
 
 export const jokeCategories = [
-  {
-    name: "Random Shenanigans",
-    description: "All-purpose jokery. Perfect for those moments when your puns just can't be contained by logic or reason.",
-  },
+  // {
+  //   name: "Random Shenanigans",
+  //   description: "All-purpose jokery. Perfect for those moments when your puns just can't be contained by logic or reason.",
+  // },
   {
     name: "Popular TV Shows",
     description: "Timely, relevant, and just a little bit cringe—jokes about today's top small-screen obsessions.",
