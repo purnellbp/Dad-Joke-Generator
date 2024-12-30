@@ -22,6 +22,7 @@ import { generateJokeAction } from "@/app/dad-joke-generator/actions";
 import type { Joke } from "@/app/dad-joke-generator/lib/openai/jokes";
 import { useRecentJokes } from "../lib/hooks/use-recent-jokes";
 import { RecentJokes } from "./recent-jokes";
+import { OpenAIDebugDrawer } from "./openai-debug-drawer";
 
 const SpinningLoader = ({ className }: { className?: string }) => (
   <div className="inline-block ">
@@ -47,7 +48,7 @@ export function JokeGenerator() {
         currentJoke
       )}&emoji=${encodeURIComponent(
         currentEmoji || "👨"
-      )}&topic=${encodeURIComponent(joke?.topic || "")}`
+      )}&topic=${encodeURIComponent("")}`
     : "/opengraph-image";
 
   useEffect(() => {
@@ -67,6 +68,8 @@ export function JokeGenerator() {
     setIsLoading(true);
     try {
       const newJoke = await generateJokeAction(isOffensive);
+console.log("newJoke",newJoke)
+
       setJoke(newJoke);
       addJoke(newJoke);
     } catch (error) {
@@ -193,6 +196,7 @@ export function JokeGenerator() {
       </Card>
 
       <RecentJokes jokes={recentJokes} />
+      <OpenAIDebugDrawer metadata={joke?.metadata || null} />
     </div>
   );
 }

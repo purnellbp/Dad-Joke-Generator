@@ -19,7 +19,7 @@ export const createDadJokeFunction = {
       subTopic: {
         type: "string",
         description:
-          "A *highly specific* scenario, event, or reference within that category. For example, if 'Popular TV Shows' is the category, a good sub-topic might be 'Ross and Rachel get married in a hilarious ceremony.'",
+          "For TV shows: Pick a random memorable scene, character quirk, or plot point from ANY well-known TV show EXCEPT The Office or Friends. Each subtopic must reference a different show than recent jokes. Avoid using the same show or type of show repeatedly.",
       },
       jokeType: {
         type: "string",
@@ -29,7 +29,7 @@ export const createDadJokeFunction = {
       text: {
         type: "string",
         description:
-          "The actual text of the dad joke.",
+          "The actual text of the dad joke. If you need line breaks, use actual line breaks in the text - do not use escape sequences like \\n or any other special characters.",
       },
       emoji: {
         type: "string",

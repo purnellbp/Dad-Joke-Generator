@@ -1,64 +1,53 @@
 // src\lib\joke-categories.ts
 
 export const jokeCategories = [
-  // {
-  //   name: "Random Shenanigans",
-  //   description: "All-purpose jokery. Perfect for those moments when your puns just can't be contained by logic or reason.",
-  // },
+  {
+    name: "Random Shenanigans",
+    description: "Random jokes. Each joke MUST use a different reference than the last 3 jokes.",
+  },
   {
     name: "Popular TV Shows",
-    description: "Timely, relevant, and just a little bit cringe—jokes about today's top small-screen obsessions.",
+    description: "Generate jokes about TV shows from different decades and genres. RANDOMIZE between: Classic shows, 80s/90s shows, 2000s shows, or modern shows. DO NOT focus on overused shows like The Office or Friends. Each joke MUST use a different show than the last 3 jokes.",
   },
   {
     name: "Popular Movies",
-    description: "Big-screen funnies, hot off the Hollywood press. Guaranteed to make your kids roll their eyes like end-credit outtakes.",
+    description: "Generate jokes about movies from different decades and genres. RANDOMIZE between: Classic movies, 80s/90s movies, 2000s movies, or modern movies. DO NOT focus on overused movies like The Matrix or Star Wars. Each joke MUST use a different movie than the last 3 jokes.",
   },
   {
     name: "Popular Music",
-    description: "From chart-topping hits to indie darlings, these jokes will strike a chord with any music fan.",
+    description: "Generate jokes about music from different decades and genres. RANDOMIZE between: Classic music, 80s/90s music, 2000s music, or modern music. DO NOT focus on overused music like The Beatles or Queen. Each joke MUST use a different reference than the last 3 jokes.",
   },
   {
     name: "Tech & Gadgets",
-    description: "Geek out with puns about computers, smartphones, social media, and everything in between.",
+    description: "Generate jokes about technology and gadgets. RANDOMIZE between: Computers, smartphones, social media, and everything in between. DO NOT focus on overused technology like Apple or Google. Each joke MUST use a different reference than the last 3 jokes.",
   },
   {
     name: "Foodie Funnies",
-    description: "Serve up some jokes about pizza, sushi, and everything else edible. Bon appétit—or should we say, pun appétit?",
+    description: "Generate jokes about food and cooking. RANDOMIZE between: Pizza, sushi, burgers, and everything else edible. DO NOT focus on overused food like pizza or sushi. Each joke MUST use a different reference than the last 3 jokes.",
   },
   {
     name: "Sports Groaners",
-    description:
-      "From football to tiddlywinks, these pun-based plays are guaranteed to have you shouting ‘Dad jokes for the win!’",
-  },
-  {
-    name: "Foodie Funnies",
-    description:
-      "Serve up some jokes about pizza, sushi, and everything else edible. Bon appétit—or should we say, pun appétit?",
+    description: "Generate jokes about sports. RANDOMIZE between: Football, basketball, baseball, and everything else sports-related. DO NOT focus on overused sports like baseball or basketball. Each joke MUST use a different reference than the last 3 jokes.",
   },
   {
     name: "Dad Habits & Quirks",
-    description:
-      "From thermostat policing to groaning when sitting down, these jokes capture the timeless, universal dad-isms.",
+    description: "Generate jokes about dad habits and quirks. RANDOMIZE between: Thermostat policing, groaning when sitting down, and everything else dad-ish. DO NOT focus on overused dad habits like groaning or thermostat policing. Each joke MUST use a different reference than the last 3 jokes.",
   },
   {
     name: "Fashion Faux-Pas (Dad Edition)",
-    description:
-      "Think socks with sandals, cargo shorts, and that one shirt Dad won’t throw away—these jokes tackle Dad’s questionable style choices.",
+    description: "Generate jokes about dad fashion. RANDOMIZE between: Socks with sandals, cargo shorts, and that one shirt Dad won’t throw away. DO NOT focus on overused dad fashion like cargo shorts or socks with sandals. Each joke MUST use a different reference than the last 3 jokes.",
   },
   {
     name: "Dad vs. Pop Culture",
-    description:
-      "Nothing’s funnier than Dad desperately trying to decode new slang, social media trends, and memes he can’t pronounce.",
+    description: "Generate jokes about dad's struggle with pop culture. RANDOMIZE between: Trying to understand new slang, social media trends, and memes. DO NOT focus on overused pop culture references like tic-tok or instagram. Each joke MUST use a different reference than the last 3 jokes.",
   },
   {
     name: "DIY (Dad-It-Yourself)",
-    description:
-      "Gags about Dad’s home improvement attempts, questionable tool usage, and epic 'I can fix that' moments.",
+    description: "Generate jokes about Dad’s home improvement attempts, questionable tool usage, and epic 'I can fix that' moments. DO NOT focus on overused home improvement references like fixing a leaky faucet or hanging a picture. Each joke MUST use a different reference than the last 3 jokes.",
   },
   {
     name: "Accidental Innuendos",
-    description:
-      "Those face-palm moments when Dad’s well-meaning remarks veer into awkward or suggestive territory without him even realizing it.",
+    description: "Generate jokes about Dad’s well-meaning remarks veer into awkward or suggestive territory without him even realizing it. Each joke MUST use a different reference than the last 3 jokes.",
   },
 ] as const;
 

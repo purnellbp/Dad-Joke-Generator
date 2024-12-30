@@ -10,6 +10,7 @@ interface RecentJokesProps {
 }
 
 export function RecentJokes({ jokes }: RecentJokesProps) {
+  const isDevelopment = process.env.NEXT_PUBLIC_DEVELOPMENT_MODE === 'true'
   if (!jokes.length) return null
 
   return (
@@ -29,7 +30,9 @@ export function RecentJokes({ jokes }: RecentJokesProps) {
                   <p className="text-sm whitespace-pre-wrap">{joke.text}</p>
                   <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
                     <span>{joke.emoji}</span>
-                    <span className="italic">{joke.topic}</span>
+                    {isDevelopment && (
+                      <span className="italic">{joke.topic}</span>
+                    )}
                   </div>
                 </CardContent>
               </Card>
